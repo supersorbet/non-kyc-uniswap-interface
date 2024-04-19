@@ -97,11 +97,11 @@ const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.GOERLI]: {
     networkType: NetworkType.L1,
     docs: 'https://docs.uniswap.org/',
-    explorer: 'https://goerli.etherscan.io/',
+    explorer: 'https://sepolia.etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/',
-    label: 'Görli',
+    label: 'Sepölia',
     logoUrl: ethereumLogoUrl,
-    nativeCurrency: { name: 'Görli Ether', symbol: 'görETH', decimals: 18 },
+    nativeCurrency: { name: 'Sepölia Ether', symbol: 'sepETH', decimals: 18 },
     color: colorsDark.chain_5,
   },
   [SupportedChainId.OPTIMISM]: {
@@ -127,7 +127,7 @@ const CHAIN_INFO: ChainInfoMap = {
     bridge: 'https://app.optimism.io/bridge',
     defaultListUrl: OPTIMISM_LIST,
     docs: 'https://optimism.io/',
-    explorer: 'https://goerli-optimism.etherscan.io/',
+    explorer: 'https://sepolia-optimism.etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/optimism/',
     label: 'Optimism Görli',
     logoUrl: optimismLogoUrl,
