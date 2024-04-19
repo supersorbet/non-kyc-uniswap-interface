@@ -138,6 +138,7 @@ let tokensWithPriceHistoryCache: Record<HistoryDuration, Record<string, TopToken
   MONTH: {},
   WEEK: {},
   YEAR: {},
+  FIVE_MINUTE: {},
   '%future added value': {},
 }
 let cachedChain: Chain | undefined
@@ -149,6 +150,7 @@ const resetTokensWithPriceHistoryCache = () => {
     MONTH: {},
     WEEK: {},
     YEAR: {},
+    FIVE_MINUTE: {},
     '%future added value': {},
   }
 }
