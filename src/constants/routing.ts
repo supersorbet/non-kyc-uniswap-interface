@@ -26,6 +26,7 @@ import {
   SWISE,
   TRIBE,
   USDC_ARBITRUM,
+  USDC_BASED,
   USDC_MAINNET,
   USDC_OPTIMISM,
   USDC_POLYGON,
@@ -132,6 +133,7 @@ export const COMMON_BASES: ChainCurrencyList = {
   ],
   [SupportedChainId.BASED]: [
     nativeOnChain(SupportedChainId.BASED),
+    USDC_BASED,
     WRAPPED_NATIVE_CURRENCY[SupportedChainId.BASED] as Token,
   ],
   [SupportedChainId.KOVAN]: [

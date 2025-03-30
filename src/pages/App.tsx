@@ -1,4 +1,3 @@
-import React from "react";
 import { initializeAnalytics, sendAnalyticsEvent, user } from 'analytics'
 import { CUSTOM_USER_PROPERTIES, EventName, PageName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'
@@ -10,6 +9,7 @@ import { NftVariant, useNftFlag } from 'featureFlags/flags/nft'
 import { RedesignVariant, useRedesignFlag } from 'featureFlags/flags/redesign'
 import { TokensVariant, useTokensFlag } from 'featureFlags/flags/tokens'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
+import React from 'react'
 import { lazy, Suspense, useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useIsDarkMode } from 'state/user/hooks'
