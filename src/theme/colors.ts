@@ -252,8 +252,8 @@ export const colorsLight: Palette = {
   accentFailure: colors.red400,
   accentCritical: colors.red400,
 
-  accentActionSoft: opacify(24, colors.pink400),
-  accentActiveSoft: opacify(24, colors.blue400),
+  accentActionSoft: opacify(24, '#00FFFF'), // Cyan soft
+  accentActiveSoft: opacify(24, '#00FFFF'), // Cyan soft
   accentSuccessSoft: opacify(24, colors.green400),
   accentWarningSoft: opacify(24, colors.gold200),
   accentFailureSoft: opacify(12, colors.red400),
@@ -293,23 +293,23 @@ export const colorsLight: Palette = {
 }
 
 export const colorsDark: Palette = {
-  userThemeColor: colors.magentaVibrant,
+  userThemeColor: '#00FFFF', // Cyan
 
-  backgroundBackdrop: colors.pink100,
-  backgroundSurface: colors.pink900,
-  backgroundModule: colors.pink300,
-  backgroundInteractive: colors.pink800,
-  backgroundFloating: opacify(12, colors.pink100),
-  backgroundOutline: opacify(24, colors.gray300),
-  backgroundScrim: opacify(72, colors.gray900),
-  backgroundScrolledSurface: opacify(72, colors.gray900),
+  backgroundBackdrop: colors.black,
+  backgroundSurface: '#000000', // Pure black
+  backgroundModule: '#141B2B',
+  backgroundInteractive: '#1F2639',
+  backgroundFloating: opacify(12, colors.black),
+  backgroundOutline: opacify(24, '#00FFFF'), // Cyan outline
+  backgroundScrim: opacify(72, colors.black),
+  backgroundScrolledSurface: opacify(72, colors.black),
 
   textPrimary: colors.white,
-  textSecondary: colors.gray300,
-  textTertiary: colors.gray500,
+  textSecondary: '#00FFFF', // Cyan text
+  textTertiary: '#8F96AC',
 
-  accentAction: colors.blue400,
-  accentActive: colors.blue400,
+  accentAction: '#00FFFF', // Cyan action
+  accentActive: '#00FFFF', // Cyan active
   accentSuccess: colors.green200,
   accentWarning: colors.gold200,
   accentFailure: colors.red300,

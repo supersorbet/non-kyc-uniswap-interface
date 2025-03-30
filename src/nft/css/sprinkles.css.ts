@@ -245,8 +245,8 @@ export const vars = createGlobalTheme(':root', {
     '500': '500ms',
   },
   fonts: {
-    body: 'Inter, sans-serif',
-    heading: 'Adieu, sans-serif',
+    body: "'JetBrains Mono', monospace",
+    heading: "'JetBrains Mono', monospace",
   },
 })
 

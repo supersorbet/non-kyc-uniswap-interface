@@ -105,7 +105,8 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'BASED',
     logoUrl: ethereumLogoUrl,
     nativeCurrency: { name: 'BasedAI', symbol: 'BASED', decimals: 18 },
-    color: colorsDark.chain_5,
+    color: '#00FFFF',
+    backgroundColor: '#000000',
   },
   [SupportedChainId.OPTIMISM]: {
     networkType: NetworkType.L2,

@@ -79,6 +79,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT_ARBITRUM_ONE,
     WBTC_ARBITRUM_ONE,
   ],
+  [SupportedChainId.BASED]: [...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.BASED], USDC_BASED],
   [SupportedChainId.POLYGON]: [
     ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.POLYGON],
     DAI_POLYGON,
@@ -199,6 +200,7 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
     USDT,
     WBTC,
   ],
+  [SupportedChainId.BASED]: [...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.BASED], USDC_BASED],
 }
 export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {
   [SupportedChainId.MAINNET]: [

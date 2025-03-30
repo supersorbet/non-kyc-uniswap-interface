@@ -8,18 +8,16 @@ export const BodyWrapper = styled.main<{ margin?: string; maxWidth?: string; red
   margin-top: ${({ margin }) => margin ?? '0px'};
   max-width: ${({ maxWidth, redesignFlag }) => maxWidth ?? (redesignFlag ? '420px' : '480px')};
   width: 100%;
-  background: ${({ theme, redesignFlag }) => (redesignFlag ? theme.backgroundSurface : theme.deprecated_bg0)};
+  background: #000000;
   border-radius: ${({ redesignFlag }) => (redesignFlag ? '16px' : '24px')};
-  border: 1px solid ${({ theme, redesignFlag }) => (redesignFlag ? theme.backgroundOutline : 'transparent')};
+  border: 1px solid #00ffff30;
   margin-top: 1rem;
   margin-left: auto;
   margin-right: auto;
   z-index: ${Z_INDEX.deprecated_content};
   font-feature-settings: ${({ redesignFlag }) =>
     redesignFlag ? "'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on" : "'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on"};
-  box-shadow: ${({ redesignFlag }) =>
-    !redesignFlag &&
-    '0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 24px 32px rgba(0, 0, 0, 0.01)'};
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 30px rgba(0, 255, 255, 0.05);
 `
 
 /**

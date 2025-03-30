@@ -40,6 +40,12 @@ export default function RadialGradientByChainUpdater(): null {
     }
 
     switch (chainId) {
+      case SupportedChainId.BASED:
+        setBackground(backgroundResetStyles)
+        const basedGradient =
+          'linear-gradient(rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 1) 100%), radial-gradient(circle at 50% 0%, rgba(0, 255, 255, 0.3) 0%, rgba(0, 255, 255, 0) 70%)'
+        backgroundRadialGradientElement.style.background = basedGradient
+        break
       case SupportedChainId.ARBITRUM_ONE:
       case SupportedChainId.ARBITRUM_RINKEBY:
         setBackground(backgroundResetStyles)
@@ -93,7 +99,6 @@ export default function RadialGradientByChainUpdater(): null {
           : darkMode
           ? 'overlay,normal'
           : 'multiply,normal'
-        break
       default:
         setBackground(initialStyles)
         const defaultLightGradient = redesignFlagEnabled
