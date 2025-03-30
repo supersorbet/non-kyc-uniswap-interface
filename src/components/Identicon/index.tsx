@@ -1,3 +1,4 @@
+import React from "react";
 import jazzicon from '@metamask/jazzicon'
 import { useWeb3React } from '@web3-react/core'
 import { NavBarVariant, useNavBarFlag } from 'featureFlags/flags/navBar'

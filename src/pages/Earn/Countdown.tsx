@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useMemo, useState } from 'react'
 
 import { REWARDS_DURATION_DAYS, STAKING_GENESIS } from '../../state/stake/hooks'

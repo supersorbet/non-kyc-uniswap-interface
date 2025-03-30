@@ -1,3 +1,4 @@
+import React from "react";
 import Tooltip from 'components/Tooltip'
 import { ReactNode, useCallback, useState } from 'react'
 import { Info } from 'react-feather'

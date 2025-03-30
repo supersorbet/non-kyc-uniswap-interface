@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { useAtom } from 'jotai'
 import { Heart } from 'react-feather'

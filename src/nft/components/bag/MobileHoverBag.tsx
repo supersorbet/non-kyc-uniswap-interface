@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from 'nft/components/Box'
 import { Column, Row } from 'nft/components/Flex'
 import { body, bodySmall } from 'nft/css/common.css'

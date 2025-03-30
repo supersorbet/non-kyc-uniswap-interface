@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { Token } from '@uniswap/sdk-core'
 import Badge, { BadgeVariant } from 'components/Badge'

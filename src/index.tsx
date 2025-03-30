@@ -1,3 +1,4 @@
+import React from "react";
 import '@reach/dialog/styles.css'
 import 'inter-ui'
 import 'polyfills'

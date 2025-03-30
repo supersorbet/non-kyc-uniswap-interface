@@ -1,3 +1,4 @@
+import React from "react";
 import { Currency, CurrencyAmount, Fraction } from '@uniswap/sdk-core'
 import JSBI from 'jsbi'
 

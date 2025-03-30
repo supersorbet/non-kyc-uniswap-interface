@@ -1,3 +1,4 @@
+import React from "react";
 import { BaseVariant, FeatureFlag, featureFlagSettings, useUpdateFlag } from 'featureFlags'
 import { FavoriteTokensVariant, useFavoriteTokensFlag } from 'featureFlags/flags/favoriteTokens'
 import { NavBarVariant, useNavBarFlag } from 'featureFlags/flags/navBar'

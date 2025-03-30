@@ -1,3 +1,4 @@
+import React from "react";
 import clsx from 'clsx'
 import useDebounce from 'hooks/useDebounce'
 import { Box } from 'nft/components/Box'

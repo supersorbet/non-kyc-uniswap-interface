@@ -1,3 +1,4 @@
+import React from "react";
 import { animated, useSpring } from 'react-spring'
 import useResizeObserver from 'use-resize-observer'
 

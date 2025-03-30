@@ -1,3 +1,4 @@
+import React from "react";
 import { WidgetSkeleton } from 'components/Widget'
 import { LeftPanel, RightPanel, TokenDetailsLayout } from 'pages/TokenDetails'
 import styled, { useTheme } from 'styled-components/macro'

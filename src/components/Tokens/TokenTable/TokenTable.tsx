@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { showFavoritesAtom } from 'components/Tokens/state'
 import { PAGE_SIZE, useTopTokens } from 'graphql/data/TopTokens'

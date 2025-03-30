@@ -1,3 +1,4 @@
+import React from "react";
 import { Connector } from '@web3-react/types'
 import COINBASE_ICON_URL from 'assets/images/coinbaseWalletIcon.svg'
 import { coinbaseWalletConnection, ConnectionType } from 'connection'

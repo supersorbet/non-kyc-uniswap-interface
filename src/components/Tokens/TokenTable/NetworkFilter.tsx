@@ -1,3 +1,4 @@
+import React from "react";
 import { getChainInfo } from 'constants/chainInfo'
 import { BACKEND_CHAIN_NAMES, CHAIN_NAME_TO_CHAIN_ID, validateUrlChainParam } from 'graphql/data/util'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'

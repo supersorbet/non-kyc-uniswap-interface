@@ -1,3 +1,4 @@
+import React from "react";
 /**
  * Add opacity information to a hex color
  * @param amount opacity value from 0 to 100

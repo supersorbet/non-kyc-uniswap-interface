@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import Badge, { BadgeVariant } from 'components/Badge'
 import { AlertCircle } from 'react-feather'

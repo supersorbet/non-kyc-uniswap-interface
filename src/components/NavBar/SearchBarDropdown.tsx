@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { sendAnalyticsEvent } from 'analytics'
 import { EventName } from 'analytics/constants'

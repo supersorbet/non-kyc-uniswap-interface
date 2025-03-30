@@ -1,3 +1,4 @@
+import React from "react";
 import { NavBarVariant, useNavBarFlag } from 'featureFlags/flags/navBar'
 import { useCallback, useEffect } from 'react'
 import { X } from 'react-feather'

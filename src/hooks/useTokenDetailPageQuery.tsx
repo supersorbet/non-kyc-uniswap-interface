@@ -1,3 +1,4 @@
+import React from "react";
 import { SupportedChainId } from 'constants/chains'
 import { isAddress } from 'ethers/lib/utils'
 import { useEffect, useState } from 'react'

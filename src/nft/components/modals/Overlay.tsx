@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from '../Box'
 import * as styles from './Overlay.css'
 

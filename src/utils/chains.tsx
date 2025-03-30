@@ -1,3 +1,4 @@
+import React from "react";
 import { getChainInfo, NetworkType } from 'constants/chainInfo'
 import { SupportedL2ChainId } from 'constants/chains'
 

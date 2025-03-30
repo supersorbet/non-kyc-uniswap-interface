@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import celoCircleLogoUrl from 'assets/images/celoCircle.png'
 import ethereumLogoUrl from 'assets/images/ethereum-logo.png'
 import optimismCircleLogoUrl from 'assets/images/optimismCircle.png'
@@ -54,6 +55,8 @@ export type ChainInfoMap = { readonly [chainId: number]: L1ChainInfo | L2ChainIn
 } & { readonly [chainId in SupportedL1ChainId]: L1ChainInfo }
 
 const CHAIN_INFO: ChainInfoMap = {
+
+
   [SupportedChainId.MAINNET]: {
     networkType: NetworkType.L1,
     docs: 'https://docs.uniswap.org/',
@@ -94,14 +97,14 @@ const CHAIN_INFO: ChainInfoMap = {
     nativeCurrency: { name: 'Kovan Ether', symbol: 'kovETH', decimals: 18 },
     color: colorsDark.chain_420,
   },
-  [SupportedChainId.GOERLI]: {
+  [SupportedChainId.BASED]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://sepolia.etherscan.io/',
-    infoLink: 'https://info.uniswap.org/#/',
-    label: 'Sepölia',
+    docs: 'https://basedai.io/',
+    explorer: 'https://explorer.bf1337.org/',
+    infoLink: 'https://basedai.io/info',
+    label: 'BASED',
     logoUrl: ethereumLogoUrl,
-    nativeCurrency: { name: 'Sepölia Ether', symbol: 'sepETH', decimals: 18 },
+    nativeCurrency: { name: 'BasedAI', symbol: 'BASED', decimals: 18 },
     color: colorsDark.chain_5,
   },
   [SupportedChainId.OPTIMISM]: {

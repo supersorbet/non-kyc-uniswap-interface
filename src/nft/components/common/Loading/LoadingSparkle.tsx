@@ -1,3 +1,4 @@
+import React from "react";
 import { themeVars } from 'nft/css/sprinkles.css'
 
 import * as styles from './LoadingSparkle.css'

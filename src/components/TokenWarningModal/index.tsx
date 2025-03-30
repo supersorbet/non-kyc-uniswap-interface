@@ -1,3 +1,4 @@
+import React from "react";
 import { Token } from '@uniswap/sdk-core'
 import { ImportToken } from 'components/SearchModal/ImportToken'
 

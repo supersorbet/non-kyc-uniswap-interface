@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from 'nft/components/Box'
 import * as styles from 'nft/components/layout/Marquee.css'
 import { ReactNode, useEffect, useRef, useState } from 'react'

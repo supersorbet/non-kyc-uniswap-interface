@@ -4,7 +4,7 @@ const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   [SupportedChainId.MAINNET]: 'https://etherscan.io',
   [SupportedChainId.ROPSTEN]: 'https://ropsten.etherscan.io',
   [SupportedChainId.RINKEBY]: 'https://rinkeby.etherscan.io',
-  [SupportedChainId.GOERLI]: 'https://goerli.etherscan.io',
+  [SupportedChainId.BASED]: 'https://basedai.io/explorer',
   [SupportedChainId.KOVAN]: 'https://kovan.etherscan.io',
   [SupportedChainId.OPTIMISM]: 'https://optimistic.etherscan.io',
   [SupportedChainId.OPTIMISM_GOERLI]: 'https://goerli-optimism.etherscan.io',
@@ -76,4 +76,14 @@ export function getExplorerLink(chainId: number, data: string, type: ExplorerDat
     default:
       return `${prefix}`
   }
+}
+
+export const EXPLORER_HOSTNAMES: { [chainId: number]: string } = {
+  [SupportedChainId.MAINNET]: 'etherscan.io',
+  [SupportedChainId.ROPSTEN]: 'ropsten.etherscan.io',
+  [SupportedChainId.RINKEBY]: 'rinkeby.etherscan.io',
+  [SupportedChainId.BASED]: 'basedai.io/explorer',
+  [SupportedChainId.KOVAN]: 'kovan.etherscan.io',
+  [SupportedChainId.OPTIMISM]: 'optimistic.etherscan.io',
+  // ... rest of the explorer hostnames ...
 }

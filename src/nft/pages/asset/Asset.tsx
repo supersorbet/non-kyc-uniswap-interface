@@ -1,3 +1,4 @@
+import React from "react";
 import { AssetDetails } from 'nft/components/details/AssetDetails'
 import { AssetPriceDetails } from 'nft/components/details/AssetPriceDetails'
 import { useParams } from 'react-router-dom'

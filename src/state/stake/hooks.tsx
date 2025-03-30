@@ -1,3 +1,4 @@
+import React from "react";
 import { Interface } from '@ethersproject/abi'
 import { Trans } from '@lingui/macro'
 import { abi as STAKING_REWARDS_ABI } from '@uniswap/liquidity-staker/build/StakingRewards.json'

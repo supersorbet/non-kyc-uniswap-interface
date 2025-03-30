@@ -1,3 +1,4 @@
+import React from "react";
 import { ethNumberStandardFormatter, formatWeiToDecimal } from '../../../utils/currency'
 import { putCommas } from '../../../utils/putCommas'
 import { formatChange } from '../../../utils/toSignificant'

@@ -1,3 +1,4 @@
+import React from "react";
 import { MouseoverTooltip } from 'components/Tooltip'
 import { Box } from 'nft/components/Box'
 import { Column, Row } from 'nft/components/Flex'

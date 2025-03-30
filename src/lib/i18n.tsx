@@ -1,3 +1,4 @@
+import React from "react";
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { DEFAULT_LOCALE, SupportedLocale } from 'constants/locales'

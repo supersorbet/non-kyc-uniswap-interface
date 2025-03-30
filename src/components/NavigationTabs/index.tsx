@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { Percent } from '@uniswap/sdk-core'
 import { ReactNode } from 'react'

@@ -1,3 +1,4 @@
+import React from "react";
 import { isNumber } from 'nft/utils/numbers'
 import { FormEvent, forwardRef } from 'react'
 

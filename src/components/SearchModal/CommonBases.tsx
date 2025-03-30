@@ -1,3 +1,4 @@
+import React from "react";
 import { Currency } from '@uniswap/sdk-core'
 import { ElementName, Event, EventName } from 'analytics/constants'
 import { TraceEvent } from 'analytics/TraceEvent'

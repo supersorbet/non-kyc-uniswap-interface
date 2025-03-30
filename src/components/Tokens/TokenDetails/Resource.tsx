@@ -1,3 +1,4 @@
+import React from "react";
 import { darken } from 'polished'
 import styled from 'styled-components/macro'
 import { ExternalLink } from 'theme'

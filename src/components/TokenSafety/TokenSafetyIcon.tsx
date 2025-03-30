@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactComponent as Verified } from 'assets/svg/verified.svg'
 import { Warning } from 'constants/tokenSafety'
 import styled from 'styled-components/macro'

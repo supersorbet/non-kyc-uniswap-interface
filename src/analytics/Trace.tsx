@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, memo, PropsWithChildren, useContext, useEffect, useMemo } from 'react'
 
 import { sendAnalyticsEvent } from '.'

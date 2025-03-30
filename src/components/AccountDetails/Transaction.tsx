@@ -1,3 +1,4 @@
+import React from "react";
 import { useWeb3React } from '@web3-react/core'
 import { CheckCircle, Triangle } from 'react-feather'
 import styled from 'styled-components/macro'

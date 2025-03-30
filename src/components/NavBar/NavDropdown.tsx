@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, BoxProps } from 'nft/components/Box'
 import { useIsMobile } from 'nft/hooks'
 import { ForwardedRef, forwardRef } from 'react'

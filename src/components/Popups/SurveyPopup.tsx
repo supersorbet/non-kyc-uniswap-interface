@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
 import { AutoColumn } from 'components/Column'

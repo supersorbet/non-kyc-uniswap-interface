@@ -1,3 +1,4 @@
+import React from "react";
 import { TooltipContainer } from 'components/Tooltip'
 import { transparentize } from 'polished'
 import { ReactNode } from 'react'

@@ -17,8 +17,9 @@
     "i18n:compile": "yarn i18n:extract && lingui compile",
     "i18n:pseudo": "lingui extract --locale pseudo && lingui compile",
     "prepare": "yarn contracts:compile && yarn graphql:fetch && yarn graphql:generate && yarn i18n:compile",
-    "start": "craco start",
-    "build": "craco build",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider craco start",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider craco build",
+    "build:simple": "cross-env NODE_OPTIONS=--openssl-legacy-provider SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true craco build",
     "serve": "serve build -l 3000",
     "lint": "yarn eslint .",
     "test": "craco test --coverage",
@@ -94,6 +95,7 @@
     "@vanilla-extract/babel-plugin": "^1.1.7",
     "@vanilla-extract/webpack-plugin": "^2.1.11",
     "babel-plugin-relay": "^14.1.0",
+    "cross-env": "^7.0.3",
     "cypress": "^10.3.1",
     "env-cmd": "^10.1.0",
     "eslint": "^7.11.0",
@@ -236,5 +238,6 @@
     "npm": "please-use-yarn",
     "node": "16",
     "yarn": ">=1.22"
-  }
+  },
+  "packageManager": "yarn@4.5.3+sha512.3003a14012e2987072d244c720506549c1aab73ee728208f1b2580a9fd67b92d61ba6b08fe93f6dce68fd771e3af1e59a0afa28dd242dd0940d73b95fedd4e90"
 }

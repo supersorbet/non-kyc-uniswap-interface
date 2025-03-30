@@ -1,3 +1,4 @@
+import React from "react";
 import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
 import * as connectionUtils from 'connection/utils'
 import { ApplicationModal } from 'state/application/reducer'

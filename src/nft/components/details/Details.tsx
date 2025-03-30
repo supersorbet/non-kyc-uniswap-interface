@@ -1,3 +1,4 @@
+import React from "react";
 import { bodySmall } from '../../css/common.css'
 import { shortenAddress } from '../../utils/address'
 import { Box, BoxProps } from '../Box'

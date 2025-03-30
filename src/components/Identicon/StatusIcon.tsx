@@ -1,3 +1,4 @@
+import React from "react";
 import { useWeb3React } from '@web3-react/core'
 import { ConnectionType } from 'connection'
 import { NavBarVariant, useNavBarFlag } from 'featureFlags/flags/navBar'

@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
 import Card, { DarkGreyCard } from 'components/Card'
 import Row, { AutoRow, RowBetween } from 'components/Row'
+import React from 'react'
 import { useEffect, useRef } from 'react'
 import { ArrowDown, Info, X } from 'react-feather'
 import styled from 'styled-components/macro'
@@ -75,7 +76,7 @@ const EXTERNAL_APIS = [
   },
   {
     name: 'The Graph',
-    description: <Trans>The app fetches blockchain data from The Graph’s hosted service.</Trans>,
+    description: <Trans>The app fetches blockchain data from The Graph&apos;s hosted service.</Trans>,
   },
 ]
 

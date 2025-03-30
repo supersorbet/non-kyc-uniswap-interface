@@ -1,3 +1,4 @@
+import React from "react";
 import { WARNING_LEVEL } from 'constants/tokenSafety'
 import { useTokenWarningColor } from 'hooks/useTokenWarningColor'
 import { ReactNode } from 'react'

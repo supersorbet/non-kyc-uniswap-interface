@@ -1,3 +1,4 @@
+import React from "react";
 import { NavIcon } from 'components/NavBar/NavIcon'
 import * as styles from 'components/NavBar/ShoppingBag.css'
 import { Box } from 'nft/components/Box'

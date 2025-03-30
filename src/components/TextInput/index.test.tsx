@@ -1,3 +1,4 @@
+import React from "react";
 import { fireEvent, render, screen } from 'test-utils'
 
 import { ResizingTextArea, TextInput } from './'

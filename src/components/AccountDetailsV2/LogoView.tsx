@@ -1,3 +1,4 @@
+import React from "react";
 import { useWeb3React } from '@web3-react/core'
 import { UNI_ADDRESS } from 'constants/addresses'
 import { TransactionInfo, TransactionType } from 'state/transactions/types'

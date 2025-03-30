@@ -1,3 +1,4 @@
+import React from "react";
 import { CellProps, Column } from 'react-table'
 
 import { CollectionTableColumn } from '../../types'

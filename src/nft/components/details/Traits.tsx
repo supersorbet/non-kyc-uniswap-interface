@@ -1,3 +1,4 @@
+import React from "react";
 import qs from 'query-string'
 
 import { badge } from '../../css/common.css'

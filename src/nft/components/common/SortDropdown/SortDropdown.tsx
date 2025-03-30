@@ -1,3 +1,4 @@
+import React from "react";
 import clsx from 'clsx'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { Box } from 'nft/components/Box'

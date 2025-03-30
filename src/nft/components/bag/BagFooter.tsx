@@ -1,3 +1,4 @@
+import React from "react";
 import { BigNumber } from '@ethersproject/bignumber'
 import Loader from 'components/Loader'
 import { Box } from 'nft/components/Box'

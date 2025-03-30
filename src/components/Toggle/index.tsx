@@ -1,3 +1,4 @@
+import React from "react";
 import { RedesignVariant, useRedesignFlag } from 'featureFlags/flags/redesign'
 import { darken } from 'polished'
 import { useState } from 'react'

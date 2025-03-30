@@ -8,8 +8,13 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react",
+    "jsxImportSource": "react",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -23,9 +28,16 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "es5",
-    "types": ["jest"],
+    "types": [
+      "jest"
+    ],
     "useUnknownInCatchVariables": false
   },
-  "exclude": ["node_modules", "cypress"],
-  "include": ["src/**/*"]
+  "exclude": [
+    "node_modules",
+    "cypress"
+  ],
+  "include": [
+    "src/**/*"
+  ]
 }

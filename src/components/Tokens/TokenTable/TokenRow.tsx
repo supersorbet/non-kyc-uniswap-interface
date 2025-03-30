@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { ParentSize } from '@visx/responsive'
 import { sendAnalyticsEvent } from 'analytics'

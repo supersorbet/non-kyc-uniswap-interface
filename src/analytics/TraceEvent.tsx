@@ -1,3 +1,4 @@
+import React from "react";
 import { Children, cloneElement, isValidElement, memo, PropsWithChildren, SyntheticEvent } from 'react'
 
 import { sendAnalyticsEvent } from '.'

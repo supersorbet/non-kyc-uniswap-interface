@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from 'nft/components/Box'
 import { Column } from 'nft/components/Flex'
 import { VerifiedIcon } from 'nft/components/icons'

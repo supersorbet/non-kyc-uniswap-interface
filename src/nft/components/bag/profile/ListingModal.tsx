@@ -1,3 +1,4 @@
+import React from "react";
 import { addressesByNetwork, SupportedChainId } from '@looksrare/sdk'
 import { useWeb3React } from '@web3-react/core'
 import { Box } from 'nft/components/Box'

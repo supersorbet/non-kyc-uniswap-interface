@@ -1,3 +1,4 @@
+import React from "react";
 import { Plural, Trans } from '@lingui/macro'
 
 import WarningCache, { TOKEN_LIST_TYPES } from './TokenSafetyLookupTable'

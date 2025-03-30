@@ -1,3 +1,4 @@
+import React from "react";
 import clsx from 'clsx'
 import { Box } from 'nft/components/Box'
 import { Column, Row } from 'nft/components/Flex'

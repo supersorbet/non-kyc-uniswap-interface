@@ -1,3 +1,4 @@
+import React from "react";
 import { initializeAnalytics, sendAnalyticsEvent, user } from 'analytics'
 import { CUSTOM_USER_PROPERTIES, EventName, PageName } from 'analytics/constants'
 import { Trace } from 'analytics/Trace'

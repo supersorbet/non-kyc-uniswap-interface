@@ -1,3 +1,4 @@
+import React from "react";
 import { Trans } from '@lingui/macro'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { useRef } from 'react'

@@ -1,3 +1,4 @@
+import React from "react";
 import { loadingAnimation } from 'components/Loader/styled'
 import styled from 'styled-components/macro'
 

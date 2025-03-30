@@ -1,3 +1,4 @@
+import React from "react";
 import { Currency, CurrencyAmount, Price } from '@uniswap/sdk-core'
 import { Position } from '@uniswap/v3-sdk'
 import { AutoColumn } from 'components/Column'

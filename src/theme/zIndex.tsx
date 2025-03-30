@@ -1,3 +1,4 @@
+import React from "react";
 // Migrating to a standard z-index system https://getbootstrap.com/docs/5.0/layout/z-index/
 // Please avoid using deprecated numbers
 export enum Z_INDEX {

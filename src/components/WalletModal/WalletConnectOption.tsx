@@ -1,3 +1,4 @@
+import React from "react";
 import { Connector } from '@web3-react/types'
 import WALLET_CONNECT_ICON_URL from 'assets/images/walletConnectIcon.svg'
 import { ConnectionType, walletConnectConnection } from 'connection'

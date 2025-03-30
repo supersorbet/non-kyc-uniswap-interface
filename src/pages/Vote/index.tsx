@@ -1,3 +1,4 @@
+import React from "react";
 import CreateProposal from 'pages/CreateProposal'
 import { Route, Routes } from 'react-router-dom'
 

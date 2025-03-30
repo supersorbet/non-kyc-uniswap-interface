@@ -1,3 +1,4 @@
+import React from "react";
 import { LoadingRows as BaseLoadingRows } from 'components/Loader/styled'
 import { Text } from 'rebass'
 import styled from 'styled-components/macro'

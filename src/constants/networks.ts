@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { SupportedChainId } from './chains'
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
@@ -32,11 +33,9 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
     // "Fallback" URLs
     'https://rinkeby-light.eth.linkpool.io/',
   ],
-  [SupportedChainId.GOERLI]: [
+  [SupportedChainId.BASED]: [
     // "Safe" URLs
-    'https://rpc.goerli.mudit.blog/',
-    // "Fallback" URLs
-    'https://rpc.ankr.com/eth_goerli',
+    'https://mainnet.basedaibridge.com/rpc'
   ],
   [SupportedChainId.KOVAN]: [
     // "Safe" URLs
@@ -106,7 +105,7 @@ export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
     `https://ropsten.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.ROPSTEN],
   ],
-  [SupportedChainId.GOERLI]: [`https://goerli.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.GOERLI]],
+  [SupportedChainId.BASED]: [`https://mainnet.basedaibridge.com/rpc`, ...FALLBACK_URLS[SupportedChainId.BASED]],
   [SupportedChainId.KOVAN]: [`https://kovan.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.KOVAN]],
   [SupportedChainId.OPTIMISM]: [
     `https://optimism-mainnet.infura.io/v3/${INFURA_KEY}`,

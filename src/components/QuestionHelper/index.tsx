@@ -1,3 +1,4 @@
+import React from "react";
 import { RedesignVariant, useRedesignFlag } from 'featureFlags/flags/redesign'
 import { ReactNode, useCallback, useState } from 'react'
 import { HelpCircle } from 'react-feather'

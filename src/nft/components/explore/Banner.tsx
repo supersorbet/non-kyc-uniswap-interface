@@ -1,3 +1,4 @@
+import React from "react";
 import clsx from 'clsx'
 import { useWindowSize } from 'hooks/useWindowSize'
 import { Box } from 'nft/components/Box'

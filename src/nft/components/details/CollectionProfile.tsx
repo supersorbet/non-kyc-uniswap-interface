@@ -1,3 +1,4 @@
+import React from "react";
 import { badge, subheadSmall } from '../../css/common.css'
 import { Box, BoxProps } from '../Box'
 import { Row } from '../Flex'

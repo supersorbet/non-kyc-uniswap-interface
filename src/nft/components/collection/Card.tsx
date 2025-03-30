@@ -1,3 +1,4 @@
+import React from "react";
 import clsx from 'clsx'
 import Column from 'components/Column'
 import { MouseoverTooltip } from 'components/Tooltip'

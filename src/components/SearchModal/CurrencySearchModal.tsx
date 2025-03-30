@@ -1,3 +1,4 @@
+import React from "react";
 import { Currency, Token } from '@uniswap/sdk-core'
 import { TokenList } from '@uniswap/token-lists'
 import TokenSafety from 'components/TokenSafety'

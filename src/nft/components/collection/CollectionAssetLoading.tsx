@@ -1,3 +1,4 @@
+import React from "react";
 import { loadingAsset } from 'nft/css/loading.css'
 
 import SizingImage from '../../../assets/images/sizingImage.png'

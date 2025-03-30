@@ -1,3 +1,4 @@
+import React from "react";
 // Import fonts.css for the side-effect of loading fonts for @uniswap/widgets.
 // eslint-disable-next-line no-restricted-imports
 import '@uniswap/widgets/dist/fonts.css'

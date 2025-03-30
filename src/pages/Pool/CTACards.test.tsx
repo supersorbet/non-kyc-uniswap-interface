@@ -1,3 +1,4 @@
+import React from "react";
 import * as useV3Positions from 'hooks/useV3Positions'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { render, screen } from 'test-utils'

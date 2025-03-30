@@ -1,3 +1,4 @@
+import React from "react";
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import ms from 'ms.macro'
 import { Box } from 'nft/components/Box'

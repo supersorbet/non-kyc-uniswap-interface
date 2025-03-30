@@ -1,3 +1,4 @@
+import React from "react";
 import { Plural, Trans } from '@lingui/macro'
 import { Currency, Token } from '@uniswap/sdk-core'
 import { TokenList } from '@uniswap/token-lists'

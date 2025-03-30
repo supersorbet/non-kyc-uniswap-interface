@@ -1,3 +1,4 @@
+import React from "react";
 import { useWeb3React } from '@web3-react/core'
 import Loader from 'components/Loader'
 import { getChainInfo } from 'constants/chainInfo'
