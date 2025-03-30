@@ -25,9 +25,9 @@ export const USDC_RINKEBY = new Token(
   'tUSDC',
   'test USD//C'
 )
-export const USDC_GOERLI = new Token(
-  SupportedChainId.GOERLI,
-  '0x07865c6e87b9f70255377e024ace6630c1eaa37f',
+export const USDC_BASED = new Token(
+  SupportedChainId.BASED,
+  '0x7120e48E34166F96a422A39C18FB93A79c92B6B6',
   6,
   'USDC',
   'USD//C'
@@ -133,7 +133,7 @@ export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.POLYGON_MUMBAI]: USDC_POLYGON_MUMBAI,
   [SupportedChainId.CELO]: PORTAL_USDC_CELO,
   [SupportedChainId.CELO_ALFAJORES]: USDC_CELO_ALFAJORES,
-  [SupportedChainId.GOERLI]: USDC_GOERLI,
+  [SupportedChainId.BASED]: USDC_BASED,
   [SupportedChainId.RINKEBY]: USDC_RINKEBY,
   [SupportedChainId.KOVAN]: USDC_KOVAN,
   [SupportedChainId.ROPSTEN]: USDC_ROPSTEN,
@@ -340,7 +340,13 @@ export const UNI: { [chainId: number]: Token } = {
   [SupportedChainId.MAINNET]: new Token(SupportedChainId.MAINNET, UNI_ADDRESS[1], 18, 'UNI', 'Uniswap'),
   [SupportedChainId.RINKEBY]: new Token(SupportedChainId.RINKEBY, UNI_ADDRESS[4], 18, 'UNI', 'Uniswap'),
   [SupportedChainId.ROPSTEN]: new Token(SupportedChainId.ROPSTEN, UNI_ADDRESS[3], 18, 'UNI', 'Uniswap'),
-  [SupportedChainId.GOERLI]: new Token(SupportedChainId.GOERLI, UNI_ADDRESS[5], 18, 'UNI', 'Uniswap'),
+  [SupportedChainId.BASED]: new Token(
+    SupportedChainId.BASED,
+    UNI_ADDRESS[SupportedChainId.BASED],
+    18,
+    'UNI',
+    'Uniswap'
+  ),
   [SupportedChainId.KOVAN]: new Token(SupportedChainId.KOVAN, UNI_ADDRESS[42], 18, 'UNI', 'Uniswap'),
 }
 
@@ -373,6 +379,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     18,
     'WETH',
     'Wrapped Ether'
+  ),
+  [SupportedChainId.BASED]: new Token(
+    SupportedChainId.BASED,
+    '0x7C57053Fd42FbA79E6fd43fB7499A0Ac4d342C78',
+    18,
+    'WBASED',
+    'Wrapped BASED'
   ),
   [SupportedChainId.POLYGON]: new Token(
     SupportedChainId.POLYGON,
@@ -423,6 +436,28 @@ function isMatic(chainId: number): chainId is SupportedChainId.POLYGON | Support
   return chainId === SupportedChainId.POLYGON_MUMBAI || chainId === SupportedChainId.POLYGON
 }
 
+function isBased(chainId: number): chainId is SupportedChainId.BASED {
+  return chainId === SupportedChainId.BASED
+}
+
+class BasedNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId
+  }
+
+  get wrapped(): Token {
+    if (!isBased(this.chainId)) throw new Error('Not Based')
+    const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
+    invariant(wrapped instanceof Token)
+    return wrapped
+  }
+
+  public constructor(chainId: number) {
+    if (!isBased(chainId)) throw new Error('Not Based')
+    super(chainId, 18, 'BASED', 'BASED')
+  }
+}
+
 class MaticNativeCurrency extends NativeCurrency {
   equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
@@ -463,6 +498,8 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
     nativeCurrency = new MaticNativeCurrency(chainId)
   } else if (isCelo(chainId)) {
     nativeCurrency = getCeloNativeCurrency(chainId)
+  } else if (isBased(chainId)) {
+    nativeCurrency = new BasedNativeCurrency(chainId)
   } else {
     nativeCurrency = ExtendedEther.onChain(chainId)
   }
@@ -480,7 +517,7 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in SupportedCha
     [SupportedChainId.POLYGON_MUMBAI]: USDC_POLYGON_MUMBAI.address,
     [SupportedChainId.CELO]: PORTAL_USDC_CELO.address,
     [SupportedChainId.CELO_ALFAJORES]: PORTAL_USDC_CELO.address,
-    [SupportedChainId.GOERLI]: USDC_GOERLI.address,
+    [SupportedChainId.BASED]: USDC_BASED.address,
     [SupportedChainId.RINKEBY]: USDC_RINKEBY.address,
     [SupportedChainId.KOVAN]: USDC_KOVAN.address,
     [SupportedChainId.ROPSTEN]: USDC_ROPSTEN.address,

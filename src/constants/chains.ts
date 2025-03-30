@@ -68,7 +68,6 @@ export const UNSUPPORTED_V2POOL_CHAIN_IDS = [
 export const TESTNET_CHAIN_IDS = [
   SupportedChainId.ROPSTEN,
   SupportedChainId.RINKEBY,
-  SupportedChainId.BASED,
   SupportedChainId.KOVAN,
   SupportedChainId.POLYGON_MUMBAI,
   SupportedChainId.ARBITRUM_RINKEBY,

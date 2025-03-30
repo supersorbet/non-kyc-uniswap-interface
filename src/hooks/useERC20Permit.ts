@@ -46,8 +46,8 @@ const PERMITTABLE_TOKENS: {
     [UNI[3].address]: { type: PermitType.AMOUNT, name: 'Uniswap' },
     '0x07865c6E87B9F70255377e024ace6630C1Eaa37F': { type: PermitType.AMOUNT, name: 'USD Coin', version: '2' },
   },
-  5: {
-    [UNI[5].address]: { type: PermitType.AMOUNT, name: 'Uniswap' },
+  32323: {
+    ...(UNI[32323] ? { [UNI[32323].address]: { type: PermitType.AMOUNT, name: 'Uniswap' } } : {}),
   },
   42: {
     [UNI[42].address]: { type: PermitType.AMOUNT, name: 'Uniswap' },

@@ -4,7 +4,7 @@ const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   [SupportedChainId.MAINNET]: 'https://etherscan.io',
   [SupportedChainId.ROPSTEN]: 'https://ropsten.etherscan.io',
   [SupportedChainId.RINKEBY]: 'https://rinkeby.etherscan.io',
-  [SupportedChainId.BASED]: 'https://basedai.io/explorer',
+  [SupportedChainId.BASED]: 'https://explorer.bf1337.org/',
   [SupportedChainId.KOVAN]: 'https://kovan.etherscan.io',
   [SupportedChainId.OPTIMISM]: 'https://optimistic.etherscan.io',
   [SupportedChainId.OPTIMISM_GOERLI]: 'https://goerli-optimism.etherscan.io',

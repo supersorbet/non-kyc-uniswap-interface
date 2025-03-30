@@ -29,7 +29,7 @@ export function toHistoryDuration(timePeriod: TimePeriod): HistoryDuration {
 
 export const CHAIN_ID_TO_BACKEND_NAME: { [key: number]: Chain } = {
   [SupportedChainId.MAINNET]: 'ETHEREUM',
-  [SupportedChainId.GOERLI]: 'ETHEREUM_GOERLI',
+  [SupportedChainId.BASED]: 'ETHEREUM',
   [SupportedChainId.POLYGON]: 'POLYGON',
   [SupportedChainId.POLYGON_MUMBAI]: 'POLYGON',
   [SupportedChainId.CELO]: 'CELO',

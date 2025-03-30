@@ -1,4 +1,3 @@
-import React from "react";
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import { getChainInfo } from 'constants/chainInfo'
@@ -6,6 +5,7 @@ import { SupportedChainId } from 'constants/chains'
 import useSelectChain from 'hooks/useSelectChain'
 import useSyncChainQuery from 'hooks/useSyncChainQuery'
 import { darken } from 'polished'
+import React from 'react'
 import { useRef } from 'react'
 import { AlertTriangle, ArrowDownCircle, ChevronDown } from 'react-feather'
 import { useCloseModal, useModalIsOpen, useOpenModal, useToggleModal } from 'state/application/hooks'
@@ -273,11 +273,11 @@ function Row({
 }
 
 const NETWORK_SELECTOR_CHAINS = [
+  SupportedChainId.BASED,
   SupportedChainId.MAINNET,
   SupportedChainId.POLYGON,
   SupportedChainId.OPTIMISM,
   SupportedChainId.ARBITRUM_ONE,
-  SupportedChainId.CELO,
 ]
 
 export default function NetworkSelector() {

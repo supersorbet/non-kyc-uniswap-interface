@@ -130,9 +130,9 @@ export const COMMON_BASES: ChainCurrencyList = {
     nativeOnChain(SupportedChainId.RINKEBY),
     WRAPPED_NATIVE_CURRENCY[SupportedChainId.RINKEBY] as Token,
   ],
-  [SupportedChainId.GOERLI]: [
-    nativeOnChain(SupportedChainId.GOERLI),
-    WRAPPED_NATIVE_CURRENCY[SupportedChainId.GOERLI] as Token,
+  [SupportedChainId.BASED]: [
+    nativeOnChain(SupportedChainId.BASED),
+    WRAPPED_NATIVE_CURRENCY[SupportedChainId.BASED] as Token,
   ],
   [SupportedChainId.KOVAN]: [
     nativeOnChain(SupportedChainId.KOVAN),
