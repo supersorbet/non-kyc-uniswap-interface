@@ -20,7 +20,7 @@
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider craco start",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider craco build",
     "build:simple": "cross-env NODE_OPTIONS=--openssl-legacy-provider CI=false SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true craco build",
-    "vercel-build": "cross-env NODE_OPTIONS=--openssl-legacy-provider CI=false SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true craco build",
+    "vercel-build": "cross-env NODE_OPTIONS=--openssl-legacy-provider CI=false SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true yarn graphql:generate && craco build",
     "render-build": "yarn install --ignore-engines --ignore-scripts && CI=false SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true cross-env NODE_OPTIONS=--openssl-legacy-provider craco build",
     "serve": "serve build -l 3000",
     "lint": "yarn eslint .",
@@ -248,5 +248,6 @@
     "@lingui/cli": "3.14.0",
     "@babel/core": "^7.17.0",
     "babel-plugin-macros": "^3.1.0"
-  }
+  },
+  "packageManager": "yarn@4.5.3+sha512.3003a14012e2987072d244c720506549c1aab73ee728208f1b2580a9fd67b92d61ba6b08fe93f6dce68fd771e3af1e59a0afa28dd242dd0940d73b95fedd4e90"
 }

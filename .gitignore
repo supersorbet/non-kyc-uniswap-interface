@@ -19,7 +19,6 @@ schema.graphql
 /coverage
 
 # builds
-/build
 /dts
 
 # misc

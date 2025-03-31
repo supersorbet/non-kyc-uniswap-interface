@@ -1,9 +1,9 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "yarn build:simple",
+  "buildCommand": "yarn vercel-build",
   "outputDirectory": "build",
-  "installCommand": "yarn install --ignore-engines --ignore-scripts && yarn relay && yarn relay-thegraph",
+  "installCommand": "yarn install --ignore-engines --ignore-scripts",
   "routes": [
     {
       "handle": "filesystem"
