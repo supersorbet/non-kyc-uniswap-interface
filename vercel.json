@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "outputDirectory": "build",
-  "buildCommand": "echo 'Using pre-built files'",
-  "installCommand": "echo 'Skipping install'",
   "framework": null,
+  "buildCommand": "yarn build:simple",
+  "outputDirectory": "build",
+  "installCommand": "yarn install --ignore-engines --ignore-scripts && yarn relay && yarn relay-thegraph",
   "routes": [
     {
       "handle": "filesystem"
@@ -12,5 +12,11 @@
       "src": "/.*",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NODE_OPTIONS": "--openssl-legacy-provider",
+    "CI": "false",
+    "SKIP_PREFLIGHT_CHECK": "true",
+    "DISABLE_ESLINT_PLUGIN": "true"
+  }
 }
