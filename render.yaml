@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: based-interface
+    env: static
+    buildCommand: yarn render-build
+    staticPublishPath: ./build
+    envVars:
+      - key: NODE_VERSION
+        value: 18.x
+      - key: YARN_VERSION
+        value: 1.22.22
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

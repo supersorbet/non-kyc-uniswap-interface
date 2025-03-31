@@ -1,16 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build",
-        "installCommand": "yarn install --ignore-engines",
-        "buildCommand": "yarn build:simple"
-      }
-    }
-  ],
+  "outputDirectory": "build",
+  "buildCommand": "echo 'Using pre-built files'",
+  "installCommand": "echo 'Skipping install'",
+  "framework": null,
   "routes": [
     {
       "handle": "filesystem"
