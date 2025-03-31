@@ -1,4 +1,3 @@
-import React from "react";
 import { Trans } from '@lingui/macro'
 import { Currency, CurrencyAmount, Percent, Token } from '@uniswap/sdk-core'
 import { Pair } from '@uniswap/v2-sdk'
@@ -10,6 +9,7 @@ import { LoadingOpacityContainer, loadingOpacityMixin } from 'components/Loader/
 import { isSupportedChain } from 'constants/chains'
 import { RedesignVariant, useRedesignFlag } from 'featureFlags/flags/redesign'
 import { darken } from 'polished'
+import React from 'react'
 import { ReactNode, useCallback, useState } from 'react'
 import { Lock } from 'react-feather'
 import styled, { css, useTheme } from 'styled-components/macro'

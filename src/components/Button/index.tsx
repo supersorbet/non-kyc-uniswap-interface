@@ -1,5 +1,5 @@
-import React from "react";
 import { darken } from 'polished'
+import React from 'react'
 import { Check, ChevronDown } from 'react-feather'
 import { Button as RebassButton, ButtonProps as ButtonPropsOriginal } from 'rebass/styled-components'
 import styled, { useTheme } from 'styled-components/macro'

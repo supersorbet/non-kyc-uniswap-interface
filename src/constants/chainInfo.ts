@@ -13,6 +13,10 @@ import { colorsDark } from 'theme/colors'
 import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chains'
 import { ARBITRUM_LIST, CELO_LIST, OPTIMISM_LIST } from './lists'
 
+// Use a remote URL for the BASED logo
+const basedLogoUrl = 'https://assets.coingecko.com/coins/images/36607/large/1000004475.png?1711964332'
+const basedCircleLogoUrl = 'https://assets.coingecko.com/coins/images/36607/large/1000004475.png?1711964332'
+
 export enum NetworkType {
   L1,
   L2,
@@ -103,7 +107,8 @@ const CHAIN_INFO: ChainInfoMap = {
     explorer: 'https://explorer.bf1337.org/',
     infoLink: 'https://basedai.io/info',
     label: 'BASED',
-    logoUrl: ethereumLogoUrl,
+    logoUrl: basedLogoUrl,
+    circleLogoUrl: basedCircleLogoUrl,
     nativeCurrency: { name: 'BasedAI', symbol: 'BASED', decimals: 18 },
     color: '#00FFFF',
     backgroundColor: '#000000',
