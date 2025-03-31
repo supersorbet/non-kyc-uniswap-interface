@@ -1,14 +1,18 @@
+/* eslint-disable prettier/prettier */
 import { Currency, CurrencyAmount, TradeType } from '@uniswap/sdk-core'
+import { useWeb3React } from '@web3-react/core'
 import { useMemo } from 'react'
 import { RouterPreference } from 'state/routing/slice'
 import { InterfaceTrade, TradeState } from 'state/routing/types'
 import { useRoutingAPITrade } from 'state/routing/useRoutingAPITrade'
 import { useClientSideRouter } from 'state/user/hooks'
 
+import { isV2Only } from '../utils/v2Only'
 import useAutoRouterSupported from './useAutoRouterSupported'
 import { useClientSideV3Trade } from './useClientSideV3Trade'
 import useDebounce from './useDebounce'
 import useIsWindowVisible from './useIsWindowVisible'
+import { useV2OnlyTrade } from './useV2OnlyTrade'
 
 /**
  * Returns the best v2+v3 trade for a desired swap.
@@ -24,6 +28,15 @@ export function useBestTrade(
   state: TradeState
   trade: InterfaceTrade<Currency, Currency, TradeType> | undefined
 } {
+  const { chainId } = useWeb3React()
+  
+  // Decide whether to use V2-only based on the current chain using the utility
+  const useV2Only = useMemo(() => isV2Only(chainId), [chainId])
+  
+  // If V2-only is enabled, use the V2-only trade hook
+  const v2OnlyTrade = useV2OnlyTrade(tradeType, amountSpecified, otherCurrency)
+  
+  // Original useBestTrade implementation
   const autoRouterSupported = useAutoRouterSupported()
   const isWindowVisible = useIsWindowVisible()
 
@@ -50,12 +63,15 @@ export function useBestTrade(
     useFallback ? debouncedOtherCurrency : undefined
   )
 
-  // only return gas estimate from api if routing api trade is used
-  return useMemo(
+  // For normal trade usage - only return gas estimate from api if routing api trade is used
+  const normalTrade = useMemo(
     () => ({
       ...(useFallback ? bestV3Trade : routingAPITrade),
       ...(isLoading ? { state: TradeState.LOADING } : {}),
     }),
     [bestV3Trade, isLoading, routingAPITrade, useFallback]
   )
+  
+  // Return the appropriate trade based on the V2-only decision
+  return useV2Only ? v2OnlyTrade : normalTrade
 }

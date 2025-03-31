@@ -12,6 +12,7 @@ export enum RouterPreference {
   API = 'api',
   CLIENT = 'client',
   PRICE = 'price',
+  V2_ONLY = 'v2_only',
 }
 
 const routers = new Map<ChainId, AlphaRouter>()
@@ -34,9 +35,21 @@ function getRouter(chainId: ChainId): AlphaRouter {
 const API_QUERY_PARAMS = {
   protocols: 'v2,v3,mixed',
 }
+
+// V2-only API params - only use V2 protocol
+const V2_ONLY_API_PARAMS = {
+  protocols: 'v2',
+}
+
 const CLIENT_PARAMS = {
   protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
 }
+
+// V2-only client params - only use V2 protocol
+const V2_ONLY_CLIENT_PARAMS = {
+  protocols: [Protocol.V2],
+}
+
 // Price queries are tuned down to minimize the required RPCs to respond to them.
 // TODO(zzmp): This will be used after testing router caching.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -93,9 +106,12 @@ export const routingApi = createApi({
         let result
 
         try {
-          if (routerPreference === RouterPreference.API) {
+          if (routerPreference === RouterPreference.API || routerPreference === RouterPreference.V2_ONLY) {
+            // Choose API params based on router preference
+            const queryParams = routerPreference === RouterPreference.V2_ONLY ? V2_ONLY_API_PARAMS : API_QUERY_PARAMS
+
             const query = qs.stringify({
-              ...API_QUERY_PARAMS,
+              ...queryParams,
               tokenInAddress,
               tokenInChainId,
               tokenOutAddress,
@@ -106,13 +122,17 @@ export const routingApi = createApi({
             result = await fetch(`quote?${query}`)
           } else {
             const router = getRouter(args.tokenInChainId)
-            result = await getClientSideQuote(
-              args,
-              router,
-              // TODO(zzmp): Use PRICE_PARAMS for RouterPreference.PRICE.
-              // This change is intentionally being deferred to first see what effect router caching has.
-              CLIENT_PARAMS
-            )
+
+            // Choose client params based on router preference
+            let clientParams = CLIENT_PARAMS
+            if (routerPreference === RouterPreference.V2_ONLY) {
+              clientParams = V2_ONLY_CLIENT_PARAMS
+            } else if (routerPreference === RouterPreference.PRICE) {
+              // TODO: Use PRICE_PARAMS once router caching is tested
+              clientParams = CLIENT_PARAMS
+            }
+
+            result = await getClientSideQuote(args, router, clientParams)
           }
 
           return { data: result.data as GetQuoteResult }

@@ -1,6 +1,5 @@
-import React from "react";
 import { Percent, Token } from '@uniswap/sdk-core'
-import { computePairAddress, Pair } from '@uniswap/v2-sdk'
+import { Pair } from '@uniswap/v2-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { L2_CHAIN_IDS } from 'constants/chains'
 import { SupportedLocale } from 'constants/locales'
@@ -13,6 +12,7 @@ import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
 import { BASES_TO_TRACK_LIQUIDITY_FOR, PINNED_PAIRS } from '../../constants/routing'
 import { useAllTokens } from '../../hooks/Tokens'
+import { computePairAddressWithChainSpecificInitHash } from '../../utils/computePairAddress'
 import { AppState } from '../index'
 import {
   addSerializedPair,
@@ -176,10 +176,10 @@ export function useUserSlippageTolerance(): [Percent | 'auto', (slippageToleranc
     [dispatch]
   )
 
-  return useMemo(
-    () => [userSlippageTolerance, setUserSlippageTolerance],
-    [setUserSlippageTolerance, userSlippageTolerance]
-  )
+  return useMemo(() => [userSlippageTolerance, setUserSlippageTolerance], [
+    setUserSlippageTolerance,
+    userSlippageTolerance,
+  ])
 }
 
 export function useUserHideClosedPositions(): [boolean, (newHideClosedPositions: boolean) => void] {
@@ -203,10 +203,10 @@ export function useUserHideClosedPositions(): [boolean, (newHideClosedPositions:
  */
 export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: Percent): Percent {
   const allowedSlippage = useUserSlippageTolerance()[0]
-  return useMemo(
-    () => (allowedSlippage === 'auto' ? defaultSlippageTolerance : allowedSlippage),
-    [allowedSlippage, defaultSlippageTolerance]
-  )
+  return useMemo(() => (allowedSlippage === 'auto' ? defaultSlippageTolerance : allowedSlippage), [
+    allowedSlippage,
+    defaultSlippageTolerance,
+  ])
 }
 
 export function useUserTransactionTTL(): [number, (slippage: number) => void] {
@@ -285,8 +285,8 @@ export function useURLWarningVisible(): boolean {
 }
 
 /**
- * Given two tokens return the liquidity token that represents its liquidity shares
- * @param tokenA one of the two tokens
+ * Returns the tokens represented as an array of [token0, token1]
+ * @param tokenA one of the tokens
  * @param tokenB the other token
  */
 export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
@@ -296,7 +296,11 @@ export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
 
   return new Token(
     tokenA.chainId,
-    computePairAddress({ factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId], tokenA, tokenB }),
+    computePairAddressWithChainSpecificInitHash({
+      factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId],
+      tokenA,
+      tokenB,
+    }),
     18,
     'UNI-V2',
     'Uniswap V2'
@@ -351,10 +355,11 @@ export function useTrackedTokenPairs(): [Token, Token][] {
     })
   }, [savedSerializedPairs, chainId])
 
-  const combinedList = useMemo(
-    () => userPairs.concat(generatedPairs).concat(pinnedPairs),
-    [generatedPairs, pinnedPairs, userPairs]
-  )
+  const combinedList = useMemo(() => userPairs.concat(generatedPairs).concat(pinnedPairs), [
+    generatedPairs,
+    pinnedPairs,
+    userPairs,
+  ])
 
   return useMemo(() => {
     // dedupes pairs of tokens in the combined list

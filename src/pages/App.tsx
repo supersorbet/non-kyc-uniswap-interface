@@ -38,6 +38,7 @@ import MigrateV2Pair from './MigrateV2/MigrateV2Pair'
 import Pool from './Pool'
 import { PositionPage } from './Pool/PositionPage'
 import PoolV2 from './Pool/v2'
+import V2Redirect from './Pool/V2Redirect'
 import PoolFinder from './PoolFinder'
 import RemoveLiquidity from './RemoveLiquidity'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
@@ -208,7 +209,15 @@ export default function App() {
 
                   <Route path="pool/v2/find" element={<PoolFinder />} />
                   <Route path="pool/v2" element={<PoolV2 />} />
-                  <Route path="pool" element={<Pool />} />
+                  <Route
+                    path="pool"
+                    element={
+                      <>
+                        <V2Redirect />
+                        <Pool />
+                      </>
+                    }
+                  />
                   <Route path="pool/:tokenId" element={<PositionPage />} />
 
                   <Route path="add/v2" element={<RedirectDuplicateTokenIdsV2 />}>

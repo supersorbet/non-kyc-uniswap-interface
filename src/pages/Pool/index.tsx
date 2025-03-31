@@ -1,4 +1,3 @@
-import React from "react";
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import { PageName } from 'analytics/constants'
@@ -14,6 +13,7 @@ import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { isSupportedChain } from 'constants/chains'
 import { NavBarVariant, useNavBarFlag } from 'featureFlags/flags/navBar'
 import { useV3Positions } from 'hooks/useV3Positions'
+import React from 'react'
 import { AlertTriangle, BookOpen, ChevronDown, ChevronsRight, Inbox, Layers, PlusCircle } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useToggleWalletModal } from 'state/application/hooks'
@@ -23,6 +23,7 @@ import { HideSmall, ThemedText } from 'theme'
 import { PositionDetails } from 'types/position'
 
 import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
+import { isV2Only } from '../../utils/v2Only'
 import CTACards from './CTACards'
 import { LoadingRows } from './styleds'
 
@@ -229,7 +230,7 @@ export default function Pool() {
           <PlusCircle size={16} />
         </MenuItem>
       ),
-      link: '/add/ETH',
+      link: isV2Only(chainId) ? '/add/v2/ETH' : '/add/ETH',
       external: false,
     },
     {
