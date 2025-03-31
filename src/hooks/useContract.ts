@@ -28,11 +28,14 @@ import {
   V2_ROUTER_ADDRESS,
   V3_MIGRATOR_ADDRESSES,
 } from 'constants/addresses'
+import { SupportedChainId } from 'constants/chains'
 import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import { useMemo } from 'react'
 import { NonfungiblePositionManager, Quoter, QuoterV2, TickLens, UniswapInterfaceMulticall } from 'types/v3'
 import { V3Migrator } from 'types/v3/V3Migrator'
 
+// Import BBDexRouter02 ABI
+import BBDexRouter02ABI from '../abis/BBDexRouter02.json'
 import { getContract } from '../utils'
 
 const { abi: IUniswapV2PairABI } = IUniswapV2PairJson
@@ -117,7 +120,13 @@ export function usePairContract(pairAddress?: string, withSignerIfPossible?: boo
 }
 
 export function useV2RouterContract(): Contract | null {
-  return useContract(V2_ROUTER_ADDRESS, IUniswapV2Router02ABI, true)
+  const { chainId } = useWeb3React()
+
+  // Select the appropriate ABI based on chain
+  const abi = chainId === SupportedChainId.BASED ? BBDexRouter02ABI.abi : IUniswapV2Router02ABI
+
+  // Call useContract only once
+  return useContract(V2_ROUTER_ADDRESS, abi, true)
 }
 
 export function useInterfaceMulticall() {

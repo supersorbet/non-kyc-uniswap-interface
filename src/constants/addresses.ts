@@ -10,7 +10,7 @@ export const UNI_ADDRESS: AddressMap = constructSameAddressMap('0x1f9840a85d5aF5
 
 // based addresses
 const BASED_V2_FACTORY_ADDRESS = '0x6A772c846254a6cE4d186Ee89AA4cC91fE4ba634'
-const BASED_V2_ROUTER_ADDRESS = '0x4B4C88fA0A8A1E1bfA9A49BA0e9e38C48CB9b1b5'
+const BASED_V2_ROUTER_ADDRESS = '0xb7e343B79eC1eeC2AcD72d9EDC5f4Ca912750305'
 
 // V2 factory and router with BASED chain support
 export const V2_FACTORY_ADDRESSES: AddressMap = {
