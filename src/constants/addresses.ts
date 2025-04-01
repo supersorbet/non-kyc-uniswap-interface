@@ -9,8 +9,8 @@ type AddressMap = { [chainId: number]: string }
 export const UNI_ADDRESS: AddressMap = constructSameAddressMap('0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984')
 
 // based addresses
-const BASED_V2_FACTORY_ADDRESS = '0x6A772c846254a6cE4d186Ee89AA4cC91fE4ba634'
-const BASED_V2_ROUTER_ADDRESS = '0xc44B67Ce645546836EA8CE382350636ecf0f5992'
+const BASED_V2_FACTORY_ADDRESS = '0x1b38a7C23Cf407A6cBAe6ED3e3F2ec63bf05D930'
+const BASED_V2_ROUTER_ADDRESS = '0xc581a5F0D219A4FaFF496c18898049bFd71c1130'
 
 // V2 factory and router with BASED chain support
 export const V2_FACTORY_ADDRESSES: AddressMap = {

@@ -13,7 +13,7 @@ export const DEFAULT_V2_FACTORY_INIT_CODE_HASH = DEFAULT_INIT_CODE_HASH
  */
 export const INIT_CODE_HASH_OVERRIDES: { [chainId: number]: string } = {
   // Replace this with your BASED chain init code hash if it's different
-  [SupportedChainId.BASED]: '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [SupportedChainId.BASED]: '0x3f174884ed155d8fe4a233001d03644e66dc3ddf073ca9db039907229957efbf',
 }
 
 /**
