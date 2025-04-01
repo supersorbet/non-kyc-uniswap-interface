@@ -21,6 +21,8 @@ schema.graphql
 # builds
 /dts
 
+.cursorignore
+
 # misc
 .DS_Store
 .env.local
