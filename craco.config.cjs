@@ -21,6 +21,13 @@ module.exports = {
         (plugin) => plugin instanceof MiniCssExtractPlugin
       )
       if (instanceOfMiniCssExtractPlugin !== undefined) instanceOfMiniCssExtractPlugin.options.ignoreOrder = true
+
+      webpackConfig.module.rules.push({
+        test: /\\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      })
+
       return webpackConfig
     },
   },
