@@ -1,4 +1,4 @@
-import { FACTORY_ADDRESS as V2_FACTORY_ADDRESS } from '@uniswap/v2-sdk'
+import { FACTORY_ADDRESS as V2_FACTORY_ADDRESS } from '@uniswap/v2-core'
 import { FACTORY_ADDRESS as V3_FACTORY_ADDRESS } from '@uniswap/v3-sdk'
 
 import { constructSameAddressMap } from '../utils/constructSameAddressMap'
@@ -9,8 +9,8 @@ type AddressMap = { [chainId: number]: string }
 export const UNI_ADDRESS: AddressMap = constructSameAddressMap('0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984')
 
 // based addresses
-const BASED_V2_FACTORY_ADDRESS = '0x1b38a7C23Cf407A6cBAe6ED3e3F2ec63bf05D930'
-const BASED_V2_ROUTER_ADDRESS = '0xc581a5F0D219A4FaFF496c18898049bFd71c1130'
+const BASED_V2_FACTORY_ADDRESS = '0x727c19b53dB33BeB699b90F1F218972EaAB280eC'
+const BASED_V2_ROUTER_ADDRESS = '0x46c0c5b595C06Dd24688477236F9Ec0AEff037Ff'
 
 // V2 factory and router with BASED chain support
 export const V2_FACTORY_ADDRESSES: AddressMap = {
