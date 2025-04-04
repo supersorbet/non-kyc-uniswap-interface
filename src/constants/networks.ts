@@ -34,8 +34,9 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
     'https://rinkeby-light.eth.linkpool.io/',
   ],
   [SupportedChainId.BASED]: [
-    // "Safe" URLs
-    'https://mainnet.basedaibridge.com/rpc'
+    'https://mainnet.basedaibridge.com/rpc',
+    'https://basedai-bridge-rpc.publicnode.com',
+    'https://rpc.basedaibridge.com',
   ],
   [SupportedChainId.KOVAN]: [
     // "Safe" URLs
@@ -105,7 +106,11 @@ export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
     `https://ropsten.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.ROPSTEN],
   ],
-  [SupportedChainId.BASED]: [`https://mainnet.basedaibridge.com/rpc`, ...FALLBACK_URLS[SupportedChainId.BASED]],
+  [SupportedChainId.BASED]: [
+    'https://mainnet.basedaibridge.com/rpc',
+    'https://basedai-bridge-rpc.publicnode.com',
+    'https://rpc.basedaibridge.com',
+  ],
   [SupportedChainId.KOVAN]: [`https://kovan.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.KOVAN]],
   [SupportedChainId.OPTIMISM]: [
     `https://optimism-mainnet.infura.io/v3/${INFURA_KEY}`,

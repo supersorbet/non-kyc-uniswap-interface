@@ -6,9 +6,12 @@ import { useMultipleContractSingleData } from 'lib/hooks/multicall'
 import { useMemo } from 'react'
 
 import { V2_FACTORY_ADDRESSES } from '../constants/addresses'
+import { SupportedChainId } from '../constants/chains'
 import { computePairAddressWithChainSpecificInitHash } from '../utils/computePairAddress'
+import PepeDexPairABI from '../abis/PepeDexPair.json'
 
 const PAIR_INTERFACE = new Interface(IUniswapV2PairABI)
+const PEPEDEX_PAIR_INTERFACE = new Interface(PepeDexPairABI.abi)
 
 export enum PairState {
   LOADING,
@@ -41,7 +44,12 @@ export function useV2Pairs(currencies: [Currency | undefined, Currency | undefin
     [tokens]
   )
 
-  const results = useMultipleContractSingleData(pairAddresses, PAIR_INTERFACE, 'getReserves')
+  // Use the appropriate interface based on chainId
+  const results = useMultipleContractSingleData(
+    pairAddresses,
+    (tokens[0]?.[0]?.chainId === SupportedChainId.BASED) ? PEPEDEX_PAIR_INTERFACE : PAIR_INTERFACE,
+    'getReserves'
+  )
 
   return useMemo(() => {
     return results.map((result, i) => {
