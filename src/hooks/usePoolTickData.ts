@@ -9,6 +9,7 @@ import { useSingleContractMultipleData } from 'lib/hooks/multicall'
 import ms from 'ms.macro'
 import { useEffect, useMemo, useState } from 'react'
 import computeSurroundingTicks from 'utils/computeSurroundingTicks'
+import { isV2Only } from 'utils/v2Only'
 
 import { V3_CORE_FACTORY_ADDRESSES } from '../constants/addresses'
 import { useTickLens } from './useContract'
@@ -143,8 +144,10 @@ function useTicksFromSubgraph(
   feeAmount: FeeAmount | undefined
 ) {
   const { chainId } = useWeb3React()
+  const v2OnlyMode = chainId ? isV2Only(chainId) : false
+
   const poolAddress =
-    currencyA && currencyB && feeAmount
+    !v2OnlyMode && currencyA && currencyB && feeAmount
       ? Pool.getAddress(
           currencyA?.wrapped,
           currencyB?.wrapped,
@@ -154,7 +157,14 @@ function useTicksFromSubgraph(
         )
       : undefined
 
-  return useAllV3TicksQuery(poolAddress, 0, ms`30s`)
+  const result = useAllV3TicksQuery(poolAddress, 0, ms`30s`)
+
+  // Return empty data for V2-only chains
+  if (v2OnlyMode) {
+    return { isLoading: false, error: null, data: { ticks: [] } }
+  }
+
+  return result
 }
 
 // Fetches all ticks for a given pool

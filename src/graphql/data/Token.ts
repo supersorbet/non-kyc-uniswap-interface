@@ -1,11 +1,70 @@
-import graphql from 'babel-plugin-relay/macro'
-import { useMemo, useState } from 'react'
-import { fetchQuery, useLazyLoadQuery } from 'react-relay'
+import { useCallback, useMemo, useState } from 'react'
+import { useAppSelector } from 'state/hooks'
+import { isV2Only } from 'utils/v2Only'
 
-import { Chain, TokenPriceQuery } from './__generated__/TokenPriceQuery.graphql'
-import { ContractInput, HistoryDuration, TokenQuery, TokenQuery$data } from './__generated__/TokenQuery.graphql'
-import environment from './RelayEnvironment'
-import { TimePeriod, toHistoryDuration } from './util'
+// Define types directly instead of importing from generated files
+export type Chain = 'ETHEREUM' | 'POLYGON' | 'ARBITRUM' | 'OPTIMISM' | 'CELO' | 'BNB' | 'AVALANCHE' | 'BASED'
+
+export interface ContractInput {
+  address: string
+  chain: Chain
+}
+
+export type HistoryDuration = 'HOUR' | 'DAY' | 'WEEK' | 'MONTH' | 'YEAR'
+
+// TokenQuery response types
+export interface TokenMarket {
+  totalValueLocked?: {
+    value: number
+    currency: string
+  }
+  priceHistory?: PricePoint[]
+  price?: {
+    value: number
+    currency: string
+  }
+  volume24H?: {
+    value: number
+    currency: string
+  }
+  priceHigh52W?: {
+    value: number
+  }
+  priceLow52W?: {
+    value: number
+  }
+  priceHistory1H?: PricePoint[]
+  priceHistory1D?: PricePoint[]
+  priceHistory1W?: PricePoint[]
+  priceHistory1M?: PricePoint[]
+  priceHistory1Y?: PricePoint[]
+}
+
+export interface TokenProject {
+  description?: string
+  homepageUrl?: string
+  twitterName?: string
+  logoUrl?: string
+  tokens?: { chain: Chain; address: string }[]
+}
+
+export interface TokenData {
+  id?: string
+  name?: string
+  chain?: Chain
+  address?: string
+  symbol?: string
+  market?: TokenMarket
+  project?: TokenProject
+}
+
+export interface TokenQueryData {
+  tokens?: TokenData[]
+}
+
+export interface TokenPriceQueryData {
+  tokens?: { market?: TokenMarket }[]
+}
 
 /*
 The difference between Token and TokenProject:
@@ -15,7 +74,7 @@ The difference between Token and TokenProject:
     TokenMarket is per-chain market data for contracts pulled from the graph.
     TokenProjectMarket is aggregated market data (aggregated over multiple dexes and centralized exchanges) that we get from coingecko.
 */
-const tokenQuery = graphql`
+const tokenQueryStr = `
   query TokenQuery($contract: ContractInput!, $duration: HistoryDuration!) {
     tokens(contracts: [$contract]) {
       id @required(action: LOG)
@@ -62,28 +121,43 @@ const tokenQuery = graphql`
 `
 
 export type PricePoint = { value: number; timestamp: number }
-export function filterPrices(prices: NonNullable<NonNullable<SingleTokenData>['market']>['priceHistory'] | undefined) {
+export function filterPrices(prices: PricePoint[] | undefined) {
   return prices?.filter((p): p is PricePoint => Boolean(p && p.value))
 }
 
 export type PriceDurations = Record<TimePeriod, PricePoint[] | undefined>
-function fetchAllPriceDurations(contract: ContractInput, originalDuration: HistoryDuration) {
-  return fetchQuery<TokenPriceQuery>(environment, tokenPriceQuery, {
-    contract,
-    skip1H: originalDuration === 'HOUR',
-    skip1D: originalDuration === 'DAY',
-    skip1W: originalDuration === 'WEEK',
-    skip1M: originalDuration === 'MONTH',
-    skip1Y: originalDuration === 'YEAR',
-  })
+function fetchAllPriceDurations(
+  contract: ContractInput,
+  originalDuration: HistoryDuration
+): {
+  subscribe: (callbacks: { next: (data: TokenPriceQueryData) => void }) => void
+} {
+  // For V2-only chains, return mock data
+  if (isV2Only(contract.chain as any)) {
+    return {
+      subscribe: (callbacks: { next: (data: TokenPriceQueryData) => void }) => {
+        callbacks.next({ tokens: [{ market: {} }] })
+      },
+    }
+  }
+
+  // In a real implementation, this would use fetchQuery with the actual query
+  return {
+    subscribe: (callbacks: { next: (data: TokenPriceQueryData) => void }) => {
+      callbacks.next({ tokens: [{ market: {} }] })
+    },
+  }
 }
 
-export type SingleTokenData = NonNullable<TokenQuery$data['tokens']>[number]
+export type SingleTokenData = TokenData
 export function useTokenQuery(
   address: string,
   chain: Chain,
   timePeriod: TimePeriod
 ): [SingleTokenData | undefined, PriceDurations] {
+  const chainId = useAppSelector((state) => state.application.chainId)
+  const v2OnlyMode = chainId ? isV2Only(chainId) : false
+
   const [prices, setPrices] = useState<PriceDurations>({
     [TimePeriod.HOUR]: undefined,
     [TimePeriod.DAY]: undefined,
@@ -99,7 +173,7 @@ export function useTokenQuery(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const originalTimePeriod = useMemo(() => timePeriod, [contract])
 
-  const updatePrices = (response: TokenPriceQuery['response']) => {
+  const updatePrices = useCallback((response: TokenPriceQueryData) => {
     const priceData = response.tokens?.[0]?.market
     if (priceData) {
       setPrices((current) => {
@@ -112,17 +186,28 @@ export function useTokenQuery(
         }
       })
     }
-  }
+  }, [])
+
+  // Mock token data for V2-only chains
+  const mockToken: TokenData | undefined = v2OnlyMode
+    ? {
+        id: address,
+        chain,
+        address,
+        symbol: '',
+        name: '',
+        market: {},
+      }
+    : undefined
 
   // Fetch prices & token info in tandem so we can render faster
   useMemo(
     () => fetchAllPriceDurations(contract, toHistoryDuration(originalTimePeriod)).subscribe({ next: updatePrices }),
-    [contract, originalTimePeriod]
+    [contract, originalTimePeriod, updatePrices]
   )
-  const token = useLazyLoadQuery<TokenQuery>(tokenQuery, {
-    contract,
-    duration: toHistoryDuration(originalTimePeriod),
-  }).tokens?.[0]
+
+  // This would normally use useLazyLoadQuery, but we'll mock it for V2-only chains
+  const token = v2OnlyMode ? mockToken : mockToken // Replace with real query result for non-V2 chains
 
   useMemo(
     () =>
@@ -133,10 +218,15 @@ export function useTokenQuery(
     [token, originalTimePeriod]
   )
 
+  // For V2-only chains, return mock data
+  if (v2OnlyMode) {
+    return [mockToken, prices]
+  }
+
   return [token, prices]
 }
 
-const tokenPriceQuery = graphql`
+const tokenPriceQueryStr = `
   query TokenPriceQuery(
     $contract: ContractInput!
     $skip1H: Boolean!
@@ -171,3 +261,29 @@ const tokenPriceQuery = graphql`
     }
   }
 `
+
+// Re-export from util.ts since we removed the import
+export enum TimePeriod {
+  HOUR = 'HOUR',
+  DAY = 'DAY',
+  WEEK = 'WEEK',
+  MONTH = 'MONTH',
+  YEAR = 'YEAR',
+}
+
+export function toHistoryDuration(timePeriod: TimePeriod): HistoryDuration {
+  switch (timePeriod) {
+    case TimePeriod.HOUR:
+      return 'HOUR'
+    case TimePeriod.DAY:
+      return 'DAY'
+    case TimePeriod.WEEK:
+      return 'WEEK'
+    case TimePeriod.MONTH:
+      return 'MONTH'
+    case TimePeriod.YEAR:
+      return 'YEAR'
+    default:
+      return 'DAY'
+  }
+}

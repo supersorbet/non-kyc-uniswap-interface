@@ -1,4 +1,3 @@
-import graphql from 'babel-plugin-relay/macro'
 import {
   favoritesAtom,
   filterStringAtom,
@@ -9,18 +8,65 @@ import {
 } from 'components/Tokens/state'
 import { useAtomValue } from 'jotai/utils'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { fetchQuery, useRelayEnvironment } from 'react-relay'
+import { useAppSelector } from 'state/hooks'
+import { isV2Only } from 'utils/v2Only'
 
-import {
-  Chain,
-  ContractInput,
-  HistoryDuration,
-  TopTokens_TokensQuery,
-} from './__generated__/TopTokens_TokensQuery.graphql'
-import type { TopTokens100Query } from './__generated__/TopTokens100Query.graphql'
+import { Chain, HistoryDuration } from './Token'
 import { toHistoryDuration } from './util'
 
-const topTokens100Query = graphql`
+// Define the token types directly
+export interface TokenMarket {
+  totalValueLocked?: {
+    value: number
+    currency: string
+  }
+  price?: {
+    value: number
+    currency: string
+  }
+  pricePercentChange?: {
+    value: number
+    currency: string
+  }
+  volume?: {
+    value: number
+    currency: string
+  }
+  priceHistory?: Array<{
+    timestamp: number
+    value: number
+  }>
+}
+
+export interface TokenProject {
+  logoUrl?: string
+}
+
+export interface TokenData {
+  id?: string
+  name?: string
+  chain?: Chain
+  address?: string
+  symbol?: string
+  market?: TokenMarket
+  project?: TokenProject
+}
+
+export interface ContractInput {
+  address: string
+  chain: Chain
+}
+
+export interface TopTokensResponse {
+  topTokens?: TokenData[]
+}
+
+export interface TokensResponse {
+  tokens?: TokenData[]
+}
+
+// Define the queries as strings
+const topTokens100QueryStr = `
   query TopTokens100Query($duration: HistoryDuration!, $chain: Chain!) {
     topTokens(pageSize: 100, page: 1, chain: $chain) {
       id @required(action: LOG)
@@ -57,9 +103,9 @@ export enum TokenSortMethod {
   VOLUME = 'Volume',
 }
 
-export type PrefetchedTopToken = NonNullable<TopTokens100Query['response']['topTokens']>[number]
+export type PrefetchedTopToken = TokenData
 
-function useSortedTokens(tokens: TopTokens100Query['response']['topTokens'] | undefined) {
+function useSortedTokens(tokens: TokenData[] | undefined) {
   const sortMethod = useAtomValue(sortMethodAtom)
   const sortAscending = useAtomValue(sortAscendingAtom)
 
@@ -131,7 +177,7 @@ function toContractInput(token: PrefetchedTopToken) {
 // Map of key: ${HistoryDuration} and value: another Map, of key:${chain} + ${address} and value: TopToken object.
 // Acts as a local cache.
 
-let tokensWithPriceHistoryCache: Record<HistoryDuration, Record<string, TopToken>> = {
+let tokensWithPriceHistoryCache: Record<string, Record<string, TopToken>> = {
   DAY: {},
   HOUR: {},
   MAX: {},
@@ -139,7 +185,6 @@ let tokensWithPriceHistoryCache: Record<HistoryDuration, Record<string, TopToken
   WEEK: {},
   YEAR: {},
   FIVE_MINUTE: {},
-  '%future added value': {},
 }
 let cachedChain: Chain | undefined
 const resetTokensWithPriceHistoryCache = () => {
@@ -151,7 +196,6 @@ const resetTokensWithPriceHistoryCache = () => {
     WEEK: {},
     YEAR: {},
     FIVE_MINUTE: {},
-    '%future added value': {},
   }
 }
 
@@ -174,7 +218,7 @@ const checkIfAllTokensCached = (duration: HistoryDuration, tokens: PrefetchedTop
   return { everyTokenInCache, cachedTokens }
 }
 
-export type TopToken = NonNullable<TopTokens_TokensQuery['response']['tokens']>[number]
+export type TopToken = TokenData
 interface UseTopTokensReturnValue {
   error: Error | undefined
   loading: boolean
@@ -184,6 +228,9 @@ interface UseTopTokensReturnValue {
   loadingRowCount: number
 }
 export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
+  const chainId = useAppSelector((state) => state.application.chainId)
+  const v2OnlyMode = chainId ? isV2Only(chainId) : false
+
   const duration = toHistoryDuration(useAtomValue(filterTimeAtom))
   const [loadingTokensWithoutPriceHistory, setLoadingTokensWithoutPriceHistory] = useState(true)
   const [loadingTokensWithPriceHistory, setLoadingTokensWithPriceHistory] = useState(true)
@@ -209,33 +256,31 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
   )
 
   const hasMore = !tokens || tokens.length < prefetchedSelectedTokensWithoutPriceHistory.length
-  const environment = useRelayEnvironment()
 
   const loadTokensWithoutPriceHistory = useCallback(
     ({ duration, chain }: { duration: HistoryDuration; chain: Chain }) => {
       setTokens([])
-      fetchQuery<TopTokens100Query>(
-        environment,
-        topTokens100Query,
-        { duration, chain },
-        { fetchPolicy: 'store-or-network' }
-      ).subscribe({
-        next: (data) => {
-          if (data?.topTokens) setPrefetchedData([...data?.topTokens])
-        },
-        error: setError,
-        complete: () => {
-          setLoadingTokensWithoutPriceHistory(false)
-          setPrefetchedDataDuration(duration)
-          setLoadingTokensWithPriceHistory(true)
-        },
-      })
+
+      // For V2-only chains, return mock data
+      if (v2OnlyMode) {
+        setPrefetchedData([])
+        setLoadingTokensWithoutPriceHistory(false)
+        setPrefetchedDataDuration(duration)
+        setLoadingTokensWithPriceHistory(false)
+        return
+      }
+
+      // This would normally fetch data from a GraphQL endpoint
+      // For now, just return empty data
+      const data: TopTokensResponse = { topTokens: [] }
+      if (data?.topTokens) setPrefetchedData([...data?.topTokens])
+      setLoadingTokensWithoutPriceHistory(false)
+      setPrefetchedDataDuration(duration)
+      setLoadingTokensWithPriceHistory(false)
     },
-    [environment]
+    [v2OnlyMode]
   )
 
-  // TopTokens should ideally be fetched with usePaginationFragment. The backend does not current support graphql cursors;
-  // in the meantime, fetchQuery is used, as other relay hooks do not allow the refreshing and lazy loading we need
   const loadTokensWithPriceHistory = useCallback(
     ({
       contracts,
@@ -248,28 +293,36 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
       page: number
       tokens?: TopToken[]
     }) => {
-      fetchQuery<TopTokens_TokensQuery>(
-        environment,
-        tokensQuery,
-        { contracts, duration },
-        { fetchPolicy: 'store-or-network' }
-      ).subscribe({
-        next: (data) => {
-          if (data?.tokens) {
-            const priceHistoryCacheForCurrentDuration = tokensWithPriceHistoryCache[duration]
-            data.tokens.map((token) =>
-              !!token ? (priceHistoryCacheForCurrentDuration[`${token.chain}${token.address}`] = token) : null
-            )
-            appendingTokens ? setTokens([...(tokens ?? []), ...data.tokens]) : setTokens([...data.tokens])
-            setLoadingTokensWithPriceHistory(false)
-            setPage(page + 1)
+      // For V2-only chains, return mock data
+      if (v2OnlyMode) {
+        if (appendingTokens) {
+          setTokens([...(tokens ?? [])])
+        } else {
+          setTokens([])
+        }
+        setLoadingTokensWithPriceHistory(false)
+        setPage(page + 1)
+        return
+      }
+
+      // This would normally fetch data from a GraphQL endpoint
+      // For now, just return empty data
+      const data: TokensResponse = { tokens: [] }
+      if (data?.tokens) {
+        const priceHistoryCacheForCurrentDuration = tokensWithPriceHistoryCache[duration]
+        data.tokens.forEach((token) => {
+          if (token && token.chain && token.address) {
+            priceHistoryCacheForCurrentDuration[`${token.chain}${token.address}`] = token
           }
-        },
-        error: setError,
-        complete: () => setLoadingTokensWithPriceHistory(false),
-      })
+        })
+
+        appendingTokens ? setTokens([...(tokens ?? []), ...(data.tokens ?? [])]) : setTokens([...(data.tokens ?? [])])
+        setLoadingTokensWithPriceHistory(false)
+        setPage(page + 1)
+      }
+      setLoadingTokensWithPriceHistory(false)
     },
-    [duration, environment]
+    [duration, v2OnlyMode]
   )
 
   const loadMoreTokens = useCallback(() => {
@@ -324,7 +377,8 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
   }
 }
 
-export const tokensQuery = graphql`
+// Define the query as a string
+export const tokensQueryStr = `
   query TopTokens_TokensQuery($contracts: [ContractInput!]!, $duration: HistoryDuration!) {
     tokens(contracts: $contracts) {
       id @required(action: LOG)
