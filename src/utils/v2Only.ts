@@ -12,6 +12,9 @@
  * To add a new chain to V2-only mode, simply add its chain ID to the V2_ONLY_CHAINS array.
  */
 import { SupportedChainId } from '../constants/chains'
+import { getContract } from './index'
+import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
+import { Pair } from '@uniswap/v2-sdk'
 
 /**
  * Chains that should use V2-only routing and liquidity
@@ -41,12 +44,15 @@ export function isV2Only(chainId?: number): boolean {
  * @param currencyIdB Optional second token
  * @returns The correct path to the Add Liquidity page
  */
-export function getAddLiquidityPath(chainId?: number, currencyIdA?: string, currencyIdB?: string): string {
+export function getAddLiquidityPath(
+  chainId: number | undefined,
+  currencyIdA: string,
+  currencyIdB?: string
+): string {
   if (isV2Only(chainId)) {
-    // Use V2 add liquidity when on V2-only chains
+    // Force V2 path for BASED chain
     return currencyIdB ? `/add/v2/${currencyIdA}/${currencyIdB}` : `/add/v2/${currencyIdA}`
   }
-  // Use default add liquidity for V3 supported chains
   return currencyIdB ? `/add/${currencyIdA}/${currencyIdB}` : `/add/${currencyIdA}`
 }
 
@@ -78,4 +84,32 @@ export function getRemoveLiquidityPath(chainId?: number, currencyIdA?: string, c
   }
   // Use default remove liquidity for V3 supported chains
   return `/remove/${currencyIdA}/${currencyIdB}`
+}
+
+// Function to check if a chain should use V2-only functionality
+export function isV2OnlyChain(chainId: number | undefined): boolean {
+  return chainId === SupportedChainId.BASED
+}
+
+// Add a proper console log during transaction to debug the issue
+export function debugV2Transaction(chainId: number | undefined, params: any) {
+  if (isV2OnlyChain(chainId)) {
+    console.log('V2 Transaction Parameters:', params)
+  }
+}
+
+// Add utility for BASED-specific pair creation
+export function createBASEDPair(
+  tokenA: Token,
+  tokenB: Token,
+  liquidityAmountA: CurrencyAmount<Currency>,
+  liquidityAmountB: CurrencyAmount<Currency>
+): Pair {
+  if (!isV2Only(tokenA.chainId)) throw new Error('Invalid chain for BASED pair creation')
+  return new Pair(
+    liquidityAmountA.quotient,
+    liquidityAmountB.quotient,
+    tokenA,
+    tokenB
+  )
 }

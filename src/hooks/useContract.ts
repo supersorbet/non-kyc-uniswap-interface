@@ -38,6 +38,12 @@ import { V3Migrator } from 'types/v3/V3Migrator'
 import BBDexRouter02ABI from '../abis/BBDexRouter02.json'
 import { getContract } from '../utils'
 
+// Import PepeDexRouter02 ABI
+import PepeDexRouter02ABI from '../abis/PepeDexRouter02.json'
+
+// Import PepeDexPair ABI
+import PepeDexPairABI from '../abis/PepeDexPair.json'
+
 const { abi: IUniswapV2PairABI } = IUniswapV2PairJson
 const { abi: IUniswapV2Router02ABI } = IUniswapV2Router02Json
 const { abi: QuoterABI } = QuoterJson
@@ -116,14 +122,16 @@ export function useEIP2612Contract(tokenAddress?: string): Contract | null {
 }
 
 export function usePairContract(pairAddress?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(pairAddress, IUniswapV2PairABI, withSignerIfPossible)
+  const { chainId } = useWeb3React()
+  const abi = chainId === SupportedChainId.BASED ? PepeDexPairABI.abi : IUniswapV2PairABI
+  return useContract(pairAddress, abi, withSignerIfPossible)
 }
 
 export function useV2RouterContract(): Contract | null {
   const { chainId } = useWeb3React()
 
   // Select the appropriate ABI based on chain
-  const abi = chainId === SupportedChainId.BASED ? BBDexRouter02ABI.abi : IUniswapV2Router02ABI
+  const abi = chainId === SupportedChainId.BASED ? PepeDexRouter02ABI.abi : IUniswapV2Router02ABI
 
   // Call useContract only once
   return useContract(V2_ROUTER_ADDRESS, abi, true)
